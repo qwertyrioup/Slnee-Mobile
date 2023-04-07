@@ -9,8 +9,10 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#191919"
+      
     },
+    
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -23,11 +25,19 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#FFFFFF",
+        "softwareKeyboardLayoutMode": "pan",
+        "windowSoftInputMode": "adjustResize"
+      },
+      "package": "com.qwertyrioup.slneeMob"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bff2cb49-4545-4b1b-a55e-883f84f21a64"
+      }
     }
   }
 }
