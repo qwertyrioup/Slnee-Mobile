@@ -34,6 +34,7 @@ import ListScreen from './screens/ListScreen.jsx';
 
 import { StatusBar } from 'expo-status-bar';
 import ReportScreen from './screens/ReportScreen.jsx';
+import ManufacturingScreen from './screens/ManufacturingScreen.jsx';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -114,13 +115,17 @@ export default function App() {
     <NavigationContainer>
       <PersistGate loading={null} persistor={persistor}>
     <Drawer.Navigator screenOptions={{headerShown: false}} drawerContent={(props) => <DrawerBody {...props} />}>
-        <Drawer.Screen options={{ swipeEnabled: false }} name="Auth" component={MainStackNavigator} />
-      
-        <Drawer.Screen name="Main" component={MainScreen} options={{ swipeEnabled: true }}/>
+        {/* <Drawer.Screen options={{ swipeEnabled: false }} name="Auth" component={MainStackNavigator} /> */}
+        {/* <Drawer.Screen options={{ swipeEnabled: false }} name="Domain" component={DomainScreen} />
+        <Drawer.Screen options={{ swipeEnabled: false }} name="Login" component={LogInScreen} />
+        <Drawer.Screen options={{ swipeEnabled: false }} name="Test" component={TestScreen} />
+       */}
+        {/* <Drawer.Screen name="Main" component={MainScreen} options={{ swipeEnabled: true }}/>
         
         <Drawer.Screen name="Profile" component={ProfileScreen} options={{ swipeEnabled: true }}/>
         <Drawer.Screen name="List" component={ListScreen} options={{ swipeEnabled: true }}/>
-        <Drawer.Screen name="Report" component={ReportScreen} options={{ swipeEnabled: true }}/>
+        <Drawer.Screen name="Report" component={ReportScreen} options={{ swipeEnabled: true }}/> */}
+        <Drawer.Screen name="Manufacturing" component={ManufacturingScreen} options={{ swipeEnabled: true }}/>
         
         
 

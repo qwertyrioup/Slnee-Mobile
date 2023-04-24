@@ -1,11 +1,12 @@
 import { useCallback, React, useState, useEffect } from "react";
+import { StackedBarChart } from "react-native-skia-charts";
+
 import {
   LineChart,
   BarChart,
   PieChart,
   ProgressChart,
   ContributionGraph,
-  StackedBarChart,
 } from "react-native-chart-kit";
 import {
   Text,
@@ -59,9 +60,7 @@ const HomeScreen = ({ navigation }) => {
   const [cards, setCards] = useState([]);
   const [charts, setCharts] = useState([]);
   const [refresh, setRefresh] = useState(false);
-  console.log(shortcuts)
-
-  
+  console.log(shortcuts);
 
   const pullMe = () => {
     setRefresh(true);
@@ -78,12 +77,14 @@ const HomeScreen = ({ navigation }) => {
 
       //  const res = await axios.get("http://"+currentDomain+"/api/method/frappe.desk.desktop.get_desktop_page?page={\"name\":\"Home\",\"title\":\"Home\"}" );
 
-
       setCards(res1.data.message.cards.items.map((item) => item));
 
-      setShortcuts(res1.data.message.shortcuts.items.map((item) => {return({"label": item.label, "link_to": item.link_to, "type": item.type})}));
+      setShortcuts(
+        res1.data.message.shortcuts.items.map((item) => {
+          return { label: item.label, link_to: item.link_to, type: item.type };
+        })
+      );
       setCharts(res1.data.message.charts.items.map((item) => item));
-
     } catch (err) {
       console.log(err);
     }
@@ -109,33 +110,17 @@ const HomeScreen = ({ navigation }) => {
     return null;
   } else if (currentUser) {
     return (
-      <SafeAreaView SafeAreaView style={{ width: "100%", height: "100%", alignItems: "center", justifyContent:"center"}} onLayout={onLayoutRootView} >
-
-        <LinearGradient
-          colors={["#FBAB7E", "#F7CE68"]}
-          start={[0, 1]}
-          end={[1, 1]}
-          location={[0.25, 0.4, 1]}
-          style={{
-            width: "100%",
-            height: "100%"
-          }}
-        >
-          <BlurView intensity={50}
-              tint="light"
-              style={{
-                height: "100%",
-                width: "100%",
-                
-                alignItems: "center",
-                justifyContent: "center",
-                paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
-            
-              }}>
-
-
-
-
+      <SafeAreaView
+        SafeAreaView
+        style={{
+          width: "100%",
+          height: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "white",
+        }}
+        onLayout={onLayoutRootView}
+      >
         <TopBar navigation={navigation} />
         <ScrollView
           contentContainerStyle={{
@@ -151,9 +136,8 @@ const HomeScreen = ({ navigation }) => {
           <View
             style={{
               width: windowWidth,
-              
-              marginBottom: 50
-              
+
+              marginBottom: 50,
             }}
           >
             <View
@@ -164,7 +148,7 @@ const HomeScreen = ({ navigation }) => {
                   style={{
                     fontSize: 22,
                     fontWeight: "bold",
-                    color: "#28675a",
+                    color: "#FA9884",
                     marginVertical: 15,
                     marginHorizontal: 10,
                   }}
@@ -174,25 +158,29 @@ const HomeScreen = ({ navigation }) => {
               </View>
               <View>
                 {shortcuts.map((shortcut, index) => (
-                  <TouchableOpacity key={index} onPress={()=>{
-                    dispatch(saveList(shortcut))
-                    if(shortcut.type=== "Report") {
-                      
-                      navigation.navigate("Report")
-                    }else if(shortcut.type=== "DocType") {
-                      navigation.navigate("List")
-                    }else {navigation.navigate("Main")}
-                  }} >
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      dispatch(saveList(shortcut));
+                      if (shortcut.type === "Report") {
+                        navigation.navigate("Report");
+                      } else if (shortcut.type === "DocType") {
+                        navigation.navigate("List");
+                      } else {
+                        navigation.navigate("Main");
+                      }
+                    }}
+                  >
                     <Text
                       style={{
-                        fontSize: 18,
+                        fontSize: 14,
                         fontWeight: "bold",
-                        color: "#28675a",
+                        color: "#505050",
                         marginVertical: 10,
                         marginHorizontal: 20,
                       }}
                     >
-                    {shortcut.label} ↗
+                      {shortcut.label} ↗
                     </Text>
                   </TouchableOpacity>
                 ))}
@@ -206,7 +194,7 @@ const HomeScreen = ({ navigation }) => {
                   style={{
                     fontSize: 22,
                     fontWeight: "bold",
-                    color: "#28675a",
+                    color: "#FA9884",
                     marginVertical: 15,
                     marginHorizontal: 10,
                   }}
@@ -226,85 +214,83 @@ const HomeScreen = ({ navigation }) => {
                     labels: chart.data.labels ? chart.data.labels : null,
                     datasets: [
                       {
-                        data: chart.data.datasets[0].values ? chart.data.datasets[0].values.map(
-                          (value) => (value / 1000)
-                        ) : null,
-                        
+                        data: chart.data.datasets[0].values
+                          ? chart.data.datasets[0].values.map(
+                              (value) => value / 1000
+                            )
+                          : null,
                       },
                     ],
-                    legend: ["Values in K"] // optional
+                    legend: ["Values in K"], // optional
                   };
-                  if (data)  {
-
-                  
-
-                  return (
-                    <View
-                      key={index}
-                      style={{
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                      }}
-                    >
-                      <Text
+                  if (data) {
+                    return (
+                      <View
+                        key={index}
                         style={{
-                          fontSize: 18,
-                          fontWeight: "bold",
-                          color: "#28675a",
-                          marginVertical: 10,
-                          marginHorizontal: 20,
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "100%",
                         }}
                       >
-                        {chart.chart_name}
-                      </Text>
-
-                      {chart.type === "Line" && (
-                        <ScrollView
-                          horizontal={true}
-                          // style={{ marginHorizontal: 15 }}
-                          showsHorizontalScrollIndicator={false}
-                          style={{marginBottom: 50, marginTop: 10}}
+                        <Text
+                          style={{
+                            fontSize: 14,
+                            fontWeight: "bold",
+                            color: "#505050",
+                            marginVertical: 10,
+                            marginHorizontal: 20,
+                          }}
                         >
-                          <LineChart
-                            data={data}
-                            width={chart.data.labels.length * 50 + 50}
-                            height={450}
-                            yAxisLabel=""
-                            chartConfig={{
-                              backgroundGradientFrom: "#ffffff00",
-                              backgroundGradientFromOpacity: 0.4,
-                              backgroundGradientTo: "#ffffff00",
-                              backgroundGradientToOpacity: 0.4,
-                              color: (opacity = 1) =>
-                                `rgba(24,122,101, ${opacity})`,
-                              strokeWidth: 3, // optional, default 3
-                              barPercentage: 1,
-                              useShadowColorFromDataset: false, // optional
-                            }}
-                            verticalLabelRotation={90}
-                            style={{borderRadius: 50}}
-                          />
-                        </ScrollView>
-                      )}
+                          {chart.chart_name}
+                        </Text>
 
-                      {chart.type === "Bar" && (
-                        <ScrollView
-                          horizontal={true}
-                          showsHorizontalScrollIndicator={false}
-                          style={{marginBottom: 50, marginTop: 10}}
-                          // style={{ marginHorizontal: 15 }}
-                        >
-                          <BarChart
+                        {chart.type === "Line" && (
+                          <ScrollView
+                            horizontal={true}
+                            // style={{ marginHorizontal: 15 }}
+                            showsHorizontalScrollIndicator={false}
+                            style={{ marginBottom: 50, marginTop: 10 }}
+                          >
+                            <LineChart
+                              data={data}
+                              width={chart.data.labels.length * 50 + 50}
+                              height={450}
+                              yAxisLabel=""
+                              chartConfig={{
+                                backgroundGradientFrom: "#ffffff00",
+                                backgroundGradientFromOpacity: 0.4,
+                                backgroundGradientTo: "#ffffff00",
+                                backgroundGradientToOpacity: 0.4,
+                                color: (opacity = 1) =>
+                                  `rgba(24,122,101, ${opacity})`,
+                                strokeWidth: 3, // optional, default 3
+                                barPercentage: 1,
+                                useShadowColorFromDataset: false, // optional
+                              }}
+                              verticalLabelRotation={90}
+                              style={{ borderRadius: 50 }}
+                            />
+                          </ScrollView>
+                        )}
+
+                        {chart.type === "Bar" && (
+                          <ScrollView
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            style={{ marginBottom: 50, marginTop: 10 }}
+                            // style={{ marginHorizontal: 15 }}
+                          >
+                            <BarChart
                             data={data}
                             width={chart.data.labels.length * 50 +  150}
                             height={400}
                             yAxisLabel=""
                             chartConfig={{
-                              backgroundGradientFrom: "#ffffff00",
-                              backgroundGradientFromOpacity: 0.4,
-                              backgroundGradientTo: "#ffffff00",
-                              backgroundGradientToOpacity: 0.4,
+                              backgroundGradientFrom: "white",
+                              backgroundGradientFromOpacity: 1,
+                              backgroundGradientTo: "#ffffff",
+                              backgroundGradientToOpacity: 1,
                               color: (opacity = 1) =>
                                 `rgba(24,122,101, ${opacity})`,
                               strokeWidth: 1, // optional, default 3
@@ -320,15 +306,14 @@ const HomeScreen = ({ navigation }) => {
                             // style={{borderRadius: 50, paddingHorizontal: 25, paddingTop: 30, alignItems: "center", justifyContent: "center"}}
                             
                           />
-                        </ScrollView>
-                      )}
-                    </View>
-                  );
-                } else if (!data)  {
-                  return (
-                    null
-                  )
-                }
+                            
+                          </ScrollView>
+                        )}
+                      </View>
+                    );
+                  } else if (!data) {
+                    return null;
+                  }
                 })}
               </View>
             </View>
@@ -340,7 +325,7 @@ const HomeScreen = ({ navigation }) => {
                   style={{
                     fontSize: 22,
                     fontWeight: "bold",
-                    color: "#28675a",
+                    color: "#FA9884",
                     marginVertical: 15,
                     marginHorizontal: 10,
                   }}
@@ -366,14 +351,14 @@ const HomeScreen = ({ navigation }) => {
                             width: 25,
                             height: 25,
                             resizeMode: "contain",
-                            tintColor: "#28675a",
+                            tintColor: "#FA9884",
                           }}
                         />
                         <Text
                           style={{
                             fontSize: 18,
                             fontWeight: "bold",
-                            color: "#28675a",
+                            color: "#FA9884",
                             marginVertical: 10,
                             marginLeft: 10,
                           }}
@@ -385,15 +370,22 @@ const HomeScreen = ({ navigation }) => {
                       {card.links.map((link, index) => {
                         return (
                           <View key={index}>
-                            <TouchableOpacity onPress={()=>{
-                              dispatch(saveList({"label": link.label, "link_to": link.link_to}))
-                              navigation.navigate("List")
-                            }} >
+                            <TouchableOpacity
+                              onPress={() => {
+                                dispatch(
+                                  saveList({
+                                    label: link.label,
+                                    link_to: link.link_to,
+                                  })
+                                );
+                                navigation.navigate("List");
+                              }}
+                            >
                               <Text
                                 style={{
                                   fontSize: 14,
                                   fontWeight: "bold",
-                                  color: "#28675a",
+                                  color: "#505050",
                                   marginVertical: 10,
                                   marginLeft: 40,
                                 }}
@@ -412,11 +404,6 @@ const HomeScreen = ({ navigation }) => {
             </View>
           </View>
         </ScrollView>
-              </BlurView>
-
-
-
-        </LinearGradient>
       </SafeAreaView>
     );
   } else {
