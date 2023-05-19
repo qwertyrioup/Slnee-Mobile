@@ -1,4 +1,4 @@
-import { useCallback, React, useState, useEffect, useRef } from "react";
+import { useCallback, React, useState, useEffect, useRef, Component } from "react";
 import Svg, { Path } from "react-native-svg";
 import LottieView from "lottie-react-native";
 
@@ -12,23 +12,15 @@ import {
 } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import TypeWriter from "react-native-typewriter";
 import { Dimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  login,
-  loginFailure,
-  loginStart,
-  loginSuccess,
-} from "../redux/userSlice";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Axios } from "axios";
-import { Audio } from "expo-av";
-import { StatusBar } from "react-native";
 
-import { LinearGradient } from "expo-linear-gradient";
-import { BlurView } from "expo-blur";
+import { Audio } from "expo-av";
+import { Platform } from "react-native";
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import axios from "axios";
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,19 +35,68 @@ const TestScreen = ({ navigation }) => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const currentDomain = useSelector((state) => state.domain.value);
   const [sound, setSound] = useState();
-
+  const [expoToken, setExpoToken] = useState("");
+  console.log(expoToken)
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync(
       require("../assets/auth.mp3")
-    );
-    setSound(sound);
+      );
+      setSound(sound);
+      
+      await sound.playAsync();
+    }
 
-    await sound.playAsync();
-  }
+    const registerForNoyificationsAsync = async() => { 
+      
+      let token;
+      if (Device.isDevice) {
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+        if (existingStatus !== 'granted') {
+          const { status } = await Notifications.requestPermissionsAsync();
+          finalStatus = status;
+        }
+        if (finalStatus !== 'granted') {
+          alert('Failed to get push token for push notification!');
+          return;
+        }
+        token = (await Notifications.getExpoPushTokenAsync()).data;
+        
+        setExpoToken(token)
+        
+          
+        
+      } else {
+        alert('Must use physical device for Push Notifications');
+      }
+      
+      if (Platform.OS === 'android') {
+        Notifications.setNotificationChannelAsync('default', {
+          name: 'default',
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: '#FF231F7C',
+        });
+      }
+      
+    
+    }
+    
 
-  useEffect(() => {
-    playSound();
-    setTimeout(()=>{navigation.navigate('Main')},3000)
+    const handlePushToken = async () => {
+      
+     
+    axios.post('http://'+currentDomain+'/api/method/frappe.desk.doctype.bulk_update.bulk_update.submit_cancel_or_update_docs?doctype=User&docnames=["'+currentUser.full_name+'"]&action=update&data={"expo_token":"'+expoToken+'"}').catch((error)=> console.log(error))
+     
+    }
+    
+    useEffect(() => {
+      playSound();
+      // registerForNoyificationsAsync()
+      // handlePushToken()
+   
+    
+    setTimeout(()=>{navigation.navigate('Main')},1500)
   }, []);
 
   const [fontsLoaded] = useFonts({
@@ -74,30 +115,26 @@ const TestScreen = ({ navigation }) => {
     return null;
   } else if (currentUser) {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView
+        style={{ flex: 1, height: windowHeight, width: windowWidth }}
+      >
         <View
           style={{
             backgroundColor: "white",
-            height: windowHeight,
-            width: windowWidth,
-            position: "relative",
+            height: "100%",
+            width: "100%",
             alignItems: "center",
             justifyContent: "center",
           }}
         >
-          
           <View
             style={{
-              position: "absolute",
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
+              
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-
+           
             <LottieView
               autoPlay
               
@@ -108,7 +145,7 @@ const TestScreen = ({ navigation }) => {
                 backgroundColor: "white",
                 
               }}
-              source={require("../assets/success3.json")}
+              source={require("../assets/success.json")}
             />
           </View>
         </View>

@@ -245,7 +245,7 @@ const ReportScreen = ({ navigation }) => {
   
   
   
-          <TopBar navigation={navigation} />
+          {/* <TopBar navigation={navigation} /> */}
           <ScrollView
             contentContainerStyle={{
               justifyContent: "center",

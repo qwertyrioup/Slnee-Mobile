@@ -63,7 +63,7 @@ const TopBar = ({ navigation }) => {
       }}>
      
   
-        <TouchableOpacity onPress={navigation.navigate("Manufacturing")} >
+        <TouchableOpacity onPress={navigation.navigate("Profile")} >
         <Avatar.Image size={50} source={require('../../assets/avatar.png')} />
 
         </TouchableOpacity>

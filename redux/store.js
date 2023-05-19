@@ -8,6 +8,7 @@ import menuReducer from './menuSlice.js'
 import moduleReducer from './moduleSlice.js'
 import appReducer from './appSlice.js'
 import listReducer from './listSlice.js'
+
 import {
   persistStore,
   persistReducer,

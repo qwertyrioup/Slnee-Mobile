@@ -2,23 +2,29 @@
   "expo": {
     "name": "slneeMob",
     "slug": "slneeMob",
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ]
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "scheme": "com.qwertyrioup.slneeMob",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#191919"
-      
     },
-    
+
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -29,6 +35,9 @@
         "softwareKeyboardLayoutMode": "pan",
         "windowSoftInputMode": "adjustResize"
       },
+
+      "googleServicesFile": "./google-services.json",
+
       "package": "com.qwertyrioup.slneeMob"
     },
     "web": {

@@ -1,6 +1,8 @@
 import { useCallback, React, useState, useEffect } from "react";
 import Svg, { Path } from "react-native-svg";
 import LottieView from "lottie-react-native";
+import { registerIndieID } from 'native-notify';
+
 
 import {
   Text,
@@ -78,18 +80,15 @@ const LogInScreen = ({ navigation }) => {
     const titles = [];
 
     try {
-      const res = await axios.get(
-        "http://" +
-          currentDomain +
-          "/api/method/frappe.desk.desktop.get_workspace_sidebar_items"
-      );
+      const res = await axios.get("http://" +currentDomain +"/api/method/frappe.desk.desktop.get_workspace_sidebar_items")
       titles.push(
         res.data.message.pages.map(({ title }) => {
           return title;
         })
       );
+      
       dispatch(saveMenu(titles[0]));
-    } catch (err) {}
+    } catch (err) {console.log(err)}
   };
 
   const functionOne = () => {
@@ -131,6 +130,9 @@ const LogInScreen = ({ navigation }) => {
       const cookieExpiresDate = expiresOnDate["0"].split("=")[1];
 
       dispatch(loginSuccess({ ...response.data, cookie, cookieExpiresDate }));
+      
+      registerIndieID(`${response.data.full_name}`, 7874, 'crrdA1uaMv7XAFPrujbfLj');
+
       getSideBarItems();
       dispatch(saveModule("Home"));
       navigation.replace("Test");
@@ -160,12 +162,12 @@ const LogInScreen = ({ navigation }) => {
     return null;
   }
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, height: windowHeight, width: windowWidth }}>
       <View
         style={{
           backgroundColor: "white",
-          height: windowHeight,
-          width: windowWidth,
+          height: "100%",
+          width: "100%",
           position: "relative",
         }}
       >
@@ -196,6 +198,7 @@ const LogInScreen = ({ navigation }) => {
                 alignContent: "center",
                 letterSpacing: 1,
                 textAlign: "center",
+                marginTop: 10
               }}
             >
               {appSettings.app}

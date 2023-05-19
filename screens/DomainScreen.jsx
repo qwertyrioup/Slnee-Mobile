@@ -44,7 +44,7 @@ const DomainScreen = () => {
   const handleDomain = async() => {
     try {
       const response = await axios.get("http://" + domain + "/api/method/slnee_app.api.appSettings");
-      console.log(response.data.message); 
+      
       const d = response.data.message
       dispatch(saveApp(d))
       dispatch(saveDomain(domain))
@@ -87,8 +87,8 @@ const DomainScreen = () => {
  
     
  
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ backgroundColor: "white", height: windowHeight, width: windowWidth, position: "relative"}}  >
+    <SafeAreaView style={{ flex: 1, height: windowHeight, width: windowWidth }}>
+      <View style={{ backgroundColor: "white", height: "100%", width: "100%", position: "relative"}}  >
         <View style={{height: 120, width: windowWidth, backgroundColor: "#FA9884", position: "relative"}} >
           <View style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0, justifyContent: "center", alignItems: "center"}} >
           <Text

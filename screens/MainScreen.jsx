@@ -60,7 +60,7 @@ const HomeScreen = ({ navigation }) => {
   const [cards, setCards] = useState([]);
   const [charts, setCharts] = useState([]);
   const [refresh, setRefresh] = useState(false);
-  console.log(shortcuts);
+
 
   const pullMe = () => {
     setRefresh(true);
@@ -113,22 +113,25 @@ const HomeScreen = ({ navigation }) => {
       <SafeAreaView
         SafeAreaView
         style={{
-          width: "100%",
-          height: "100%",
+          flex: 1,
+          height: windowHeight,
+          backgroundColor: "white",
+          width: windowWidth,
+          paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "white",
         }}
+     
         onLayout={onLayoutRootView}
       >
-        <TopBar navigation={navigation} />
+        {/* <TopBar navigation={navigation} /> */}
         <ScrollView
           contentContainerStyle={{
             justifyContent: "center",
             alignItems: "center",
           }}
           showsVerticalScrollIndicator={false}
-          style={{ width: "100%", paddingVertical: 25, paddingBottom: 25 }}
+          style={{ width: "100%",height: "100%", paddingVertical: 25, paddingBottom: 25 }}
           refreshControl={
             <RefreshControl refreshing={refresh} onRefresh={pullMe} />
           }
@@ -146,8 +149,8 @@ const HomeScreen = ({ navigation }) => {
               <View>
                 <Text
                   style={{
-                    fontSize: 22,
-                    fontWeight: "bold",
+                    fontSize: 30,
+                  
                     color: "#FA9884",
                     marginVertical: 15,
                     marginHorizontal: 10,
@@ -156,9 +159,11 @@ const HomeScreen = ({ navigation }) => {
                   Your Shortcuts
                 </Text>
               </View>
-              <View>
+              <View >
                 {shortcuts.map((shortcut, index) => (
                   <TouchableOpacity
+                  style={{ marginVertical: 5,  justifyContent: "center",
+                  alignItems: "flex-start", height: 45, marginHorizontal: 20}}
                     key={index}
                     onPress={() => {
                       dispatch(saveList(shortcut));
@@ -173,11 +178,23 @@ const HomeScreen = ({ navigation }) => {
                   >
                     <Text
                       style={{
-                        fontSize: 14,
-                        fontWeight: "bold",
+                        fontSize: 18,
                         color: "#505050",
-                        marginVertical: 10,
-                        marginHorizontal: 20,
+                        // marginVertical: 10,
+                        // marginHorizontal: 20,
+                   
+                        textAlign: "left",
+                        
+                      }}
+                      onPress={() => {
+                        dispatch(saveList(shortcut));
+                        if (shortcut.type === "Report") {
+                          navigation.navigate("Report");
+                        } else if (shortcut.type === "DocType") {
+                          navigation.navigate("List");
+                        } else {
+                          navigation.navigate("Main");
+                        }
                       }}
                     >
                       {shortcut.label} ↗
@@ -192,8 +209,7 @@ const HomeScreen = ({ navigation }) => {
               <View>
                 <Text
                   style={{
-                    fontSize: 22,
-                    fontWeight: "bold",
+                    fontSize: 30,
                     color: "#FA9884",
                     marginVertical: 15,
                     marginHorizontal: 10,
@@ -323,8 +339,8 @@ const HomeScreen = ({ navigation }) => {
               <View>
                 <Text
                   style={{
-                    fontSize: 22,
-                    fontWeight: "bold",
+                    fontSize: 30,
+                    
                     color: "#FA9884",
                     marginVertical: 15,
                     marginHorizontal: 10,
@@ -356,8 +372,8 @@ const HomeScreen = ({ navigation }) => {
                         />
                         <Text
                           style={{
-                            fontSize: 18,
-                            fontWeight: "bold",
+                            fontSize: 25,
+                            
                             color: "#FA9884",
                             marginVertical: 10,
                             marginLeft: 10,
@@ -371,6 +387,7 @@ const HomeScreen = ({ navigation }) => {
                         return (
                           <View key={index}>
                             <TouchableOpacity
+                            style={{ marginVertical: 5,  justifyContent: "center",alignItems: "flex-start", height: 45, marginLeft: 20}}
                               onPress={() => {
                                 dispatch(
                                   saveList({
@@ -382,12 +399,21 @@ const HomeScreen = ({ navigation }) => {
                               }}
                             >
                               <Text
+                              onPress={() => {
+                                dispatch(
+                                  saveList({
+                                    label: link.label,
+                                    link_to: link.link_to,
+                                  })
+                                );
+                                navigation.navigate("List");
+                              }}
                                 style={{
-                                  fontSize: 14,
-                                  fontWeight: "bold",
+                                  fontSize: 18,
+                                  
                                   color: "#505050",
-                                  marginVertical: 10,
-                                  marginLeft: 40,
+                                  // marginVertical: 10,
+                                  // marginLeft: 40,
                                 }}
                               >
                                 ○{"   "}

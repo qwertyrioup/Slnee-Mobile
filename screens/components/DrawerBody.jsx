@@ -63,29 +63,9 @@ const DrawerBody = (props) => {
     
     return(
 
-      <SafeAreaView SafeAreaView style={{ width: "100%", height: "100%", alignItems: "center", justifyContent:"center"}} onLayout={onLayoutRootView} >
+      <SafeAreaView SafeAreaView style={{ flex: 1, width: windowWidth, height: windowHeight, alignItems: "flex-start", justifyContent:"center", paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,}} onLayout={onLayoutRootView} >
 
-        <LinearGradient
-          colors={["#FBAB7E", "#F7CE68"]}
-          start={[0, 1]}
-          end={[1, 1]}
-          location={[0.25, 0.4, 1]}
-          style={{
-            width: "100%",
-            height: "100%"
-          }}
-        >
-          <BlurView intensity={50}
-              tint="light"
-              style={{
-                height: "100%",
-                width: "100%",
-                
-                alignItems: "flex-start",
-                justifyContent: "center",
-                paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
-            
-              }}>
+
 
 
 
@@ -94,13 +74,13 @@ const DrawerBody = (props) => {
                 <View style={{position: "relative"}} >
                    
 
-                <View   style={{flexDirection: "row", justifyContent: "flex-start",alignItems: "center", width: 250, marginVertical: 20}} >
+                <View   style={{flexDirection: "row", justifyContent: "flex-start",alignItems: "center", width: 250, marginBottom: 10}} >
                       <TouchableOpacity onPress={() => {props.navigation.navigate('Profile')}} style= {{marginHorizontal: 20}} >
-                          <Image style={{resizeMode: "contain", width: 65, height: 65, tintColor: "#606060", borderRadius: 50}} source={require("../../assets/account.png")} />
+                          <Image style={{resizeMode: "contain", width: 65, height: 65, borderRadius: 50}} source={require("../../assets/avatar.png")} />
                       </TouchableOpacity>
                       
                       <TouchableOpacity  onPress={() => {props.navigation.navigate('Profile')}}>
-                          <Text style={{fontFamily: "Merry", fontSize: 20, color: "#28675a"}} >My Profile</Text>
+                          <Text style={{fontFamily: "Merry", fontSize: 20, color: "#FA9884"}} >My Profile</Text>
       
                       </TouchableOpacity>
                   </View>
@@ -123,205 +103,205 @@ const DrawerBody = (props) => {
                                 
                               
                                 source={require("../../assets/Home.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Accounting': return(<Image
                                 
                               
                                 source={require("../../assets/Accounting.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Assets': return(<Image
                                 
                               
                                 source={require("../../assets/Assets.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Build': return(<Image
                                 
                               
                                 source={require("../../assets/Build.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Buying': return(<Image
                                 
                               
                                 source={require("../../assets/Buying.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'CRM': return(<Image
                                 
                               
                                 source={require("../../assets/CRM.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Customization': return(<Image
                                 
                               
                                 source={require("../../assets/Customization.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Employee Lifecycle': return(<Image
                                 
                               
                                 source={require("../../assets/EmployeeLifecycle.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'ERPNext Integrations': return(<Image
                                 
                               
                                 source={require("../../assets/ERPNextIntegrations.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'ERPNext Settings': return(<Image
                                 
                               
                                 source={require("../../assets/ERPNextSettings.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Expense Claims': return(<Image
                                 
                               
                                 source={require("../../assets/ExpenseClaims.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'HR': return(<Image
                                 
                               
                                 source={require("../../assets/HR.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Integrations': return(<Image
                                 
                               
                                 source={require("../../assets/Integrations.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Manufacturing': return(<Image
                                 
                               
                                 source={require("../../assets/Manufacturing.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Projects': return(<Image
                                 
                               
                                 source={require("../../assets/Projects.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Quality': return(<Image
                                 
                               
                                 source={require("../../assets/Quality.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Loans': return(<Image
                                 
                               
                                 source={require("../../assets/Loans.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Leaves': return(<Image
                                 
                               
                                 source={require("../../assets/Leaves.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />) 
                               case 'Menu': return(<Image
                                 
                               
                                 source={require("../../assets/Menu.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />) 
                               case 'Payroll': return(<Image
                                 
                               
                                 source={require("../../assets/Payroll.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />) 
                               case 'Performance': return(<Image
                                 
                               
                                 source={require("../../assets/Performance.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Recruitment': return(<Image
                                 
                               
                                 source={require("../../assets/Recruitment.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Retail': return(<Image
                                 
                               
                                 source={require("../../assets/Retail.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Salary Payout': return(<Image
                                 
                               
                                 source={require("../../assets/SalaryPayout.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Selling': return(<Image
                                 
                               
                                 source={require("../../assets/Selling.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Shift Attendance': return(<Image
                                 
                               
                                 source={require("../../assets/ShiftAttendance.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Settings': return(<Image
                                 
                               
                                 source={require("../../assets/Settings.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Stock': return(<Image
                                 
                               
                                 source={require("../../assets/Stock.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Support': return(<Image
                                 
                               
                                 source={require("../../assets/Support.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Tools': return(<Image
                                 
                               
                                 source={require("../../assets/Tools.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Users': return(<Image
                                 
                               
                                 source={require("../../assets/Users.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Utilities': return(<Image
                                 
                               
                                 source={require("../../assets/Utilities.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Website': return(<Image
                                 
                               
                                 source={require("../../assets/Website.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                               case 'Tax Benefits': return(<Image
                                 
                               
                                 source={require("../../assets/TaxBenefits.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                                 
                                 break;
@@ -330,7 +310,7 @@ const DrawerBody = (props) => {
                                 
                               
                                 source={require("../../assets/Menu.png")}
-                                style={{ width: 20, height: 20, tintColor: "#28675a", resizeMode: "contain", marginLeft: 20 }}
+                                style={{ width: 30, height: 30, tintColor: "#FA9884", resizeMode: "contain", marginLeft: 20 }}
                               />)
                                 break;
                             }
@@ -339,14 +319,20 @@ const DrawerBody = (props) => {
                               
                             }
                             
-                              activeTintColor="#28675a"
-                              inactiveTintColor='#28675a'
+                              activeTintColor="#505050"
+                              inactiveTintColor='#505050'
                               label={menu}
-                              labelStyle={{fontSize: 16}}
+                              labelStyle={{fontSize: 18, fontWeight: "normal"}}
                               onPress={() => {
                                 dispatch(saveModule(menu))
+                                
+                                if(menu === "Manufacturing") {
+                                  props.navigation.navigate('Manufacturing')
+                                } else {
+                                  props.navigation.navigate('Main')
+                                }
                               
-                                props.navigation.navigate('Main')}}
+                              }}
                           />)
                         
                       }
@@ -357,7 +343,7 @@ const DrawerBody = (props) => {
                         
                              
                     <View style={{marginLeft: 60}} >
-              <Pressable  onPress={handleLogOut} style={{backgroundColor: "#606060", height: 40, width: 150, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginVertical: 20}} ><Text style={{ color:"white", fontFamily: 'Merry', fontSize: 14, fontWeight: "bold", letterSpacing: 1.3}} >Log Out</Text></Pressable>
+              <Pressable  onPress={handleLogOut} style={{backgroundColor: "#FF6969", height: 40, width: 150, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 30}} ><Text style={{ color:"white", fontFamily: 'Merry', fontSize: 18, letterSpacing: 1.3}} >Log Out</Text></Pressable>
                   
               </View>
 
@@ -376,10 +362,7 @@ const DrawerBody = (props) => {
             </DrawerContentScrollView>
             
         </View>
-              </BlurView>
-
-
-        </LinearGradient>
+ 
         </SafeAreaView>
       
     );

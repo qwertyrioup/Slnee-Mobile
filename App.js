@@ -8,7 +8,9 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+
+import registerNNPushToken from 'native-notify';
 
 
 import * as SplashScreen from 'expo-splash-screen';
@@ -35,6 +37,9 @@ import ListScreen from './screens/ListScreen.jsx';
 import { StatusBar } from 'expo-status-bar';
 import ReportScreen from './screens/ReportScreen.jsx';
 import ManufacturingScreen from './screens/ManufacturingScreen.jsx';
+import { Provider as PaperProvider } from 'react-native-paper';
+
+
 
 
 SplashScreen.preventAutoHideAsync();
@@ -63,35 +68,39 @@ const MainStackNavigator = () => {
 }
 
 
+
 export default function App() {
-  
-  
+  registerNNPushToken(7874, 'crrdA1uaMv7XAFPrujbfLj');
+
   const [appIsReady, setAppIsReady] = useState(false);
   useEffect(() => {
     async function prepare() {
       try {
-        // Pre-load fonts, make any API calls you need to do here
         await Font.loadAsync(Entypo.font);
-        // Artificially delay for two seconds to simulate a slow loading
-        // experience. Please remove this if you copy and paste the code!
+        
         await new Promise(resolve => setTimeout(resolve, 2000));
       } catch (e) {
         console.warn(e);
       } finally {
-        // Tell the application to render
         setAppIsReady(true);
       }
     }
 
     prepare();
+    // Notifications.setNotificationHandler({
+    //   handleNotification: async () => ({
+    //     shouldShowAlert: true,
+    //     shouldPlaySound: true,
+    //     shouldSetBadge: false,
+    //   }),
+    // });
+        
+
+  
   }, []);
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
-      // This tells the splash screen to hide immediately! If we call this after
-      // `setAppIsReady`, then we may see a blank screen while the app is
-      // loading its initial state and rendering its first pixels. So instead,
-      // we hide the splash screen once we know the root view has already
-      // performed layout.
+      
       await SplashScreen.hideAsync();
     }
   }, [appIsReady]);
@@ -107,24 +116,27 @@ export default function App() {
  
 
 
-
+    
     <Provider store={store}>
+      {/* <PaperProvider>
       <SafeAreaView style={{flex: 1}}    onLayout={onLayoutRootView} >
-      <StatusBar style="dark" />
+      <StatusBar style="dark" /> */}
+      <PaperProvider>
+
 
     <NavigationContainer>
       <PersistGate loading={null} persistor={persistor}>
     <Drawer.Navigator screenOptions={{headerShown: false}} drawerContent={(props) => <DrawerBody {...props} />}>
-        {/* <Drawer.Screen options={{ swipeEnabled: false }} name="Auth" component={MainStackNavigator} /> */}
-        {/* <Drawer.Screen options={{ swipeEnabled: false }} name="Domain" component={DomainScreen} />
+        <Drawer.Screen options={{ swipeEnabled: false }} name="Auth" component={MainStackNavigator} />
+        <Drawer.Screen options={{ swipeEnabled: false }} name="Domain" component={DomainScreen} />
         <Drawer.Screen options={{ swipeEnabled: false }} name="Login" component={LogInScreen} />
         <Drawer.Screen options={{ swipeEnabled: false }} name="Test" component={TestScreen} />
-       */}
-        {/* <Drawer.Screen name="Main" component={MainScreen} options={{ swipeEnabled: true }}/>
+      
+        <Drawer.Screen name="Main" component={MainScreen} options={{ swipeEnabled: true }}/>
         
         <Drawer.Screen name="Profile" component={ProfileScreen} options={{ swipeEnabled: true }}/>
         <Drawer.Screen name="List" component={ListScreen} options={{ swipeEnabled: true }}/>
-        <Drawer.Screen name="Report" component={ReportScreen} options={{ swipeEnabled: true }}/> */}
+        <Drawer.Screen name="Report" component={ReportScreen} options={{ swipeEnabled: true }}/>
         <Drawer.Screen name="Manufacturing" component={ManufacturingScreen} options={{ swipeEnabled: true }}/>
         
         
@@ -135,10 +147,12 @@ export default function App() {
 
       </PersistGate>
     </NavigationContainer>
-    </SafeAreaView>
+    {/* </SafeAreaView>
 
 
 
+    </PaperProvider> */}
+      </PaperProvider>
     </Provider>
 
       
